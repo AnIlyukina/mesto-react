@@ -1,4 +1,5 @@
-function Main(){
+
+function Main(props){
   return(
     <main className="content">
     <section className="profile">
@@ -6,6 +7,7 @@ function Main(){
         <div className="profile__avatar">
           <button
             className="profile__edit-button profile__edit-button_type_avatar"
+            onClick = {props.onEditAvatar}
           ></button>
         </div>
         <div className="profile__info">
@@ -14,17 +16,23 @@ function Main(){
             <button
               type="button"
               className="profile__edit-button profile__edit-button_type_info"
+              onClick={props.onEditProfile}
             ></button>
           </div>
           <div className="profile__info-vocation"></div>
         </div>
-        <button type="button" className="profile__add-button"></button>
+        <button 
+          type="button" 
+          className="profile__add-button"
+          onClick = {props.onAddPlace}
+        ></button>
       </div>
     </section>
     <section className="elements">
       <ul className="elements__grid"></ul>
     </section>
   </main>
+
   )
 }
 

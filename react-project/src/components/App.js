@@ -1,32 +1,55 @@
+import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
 import Main from "./Main";
+import PopupWithForm from "./PopupWithForm";
+
+
 
 function App() {
+
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
+  const [isAddProfilePopupOpen, setIsAddProfilePopupOpen] = React.useState(false)
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+
+  function handleEditProfileClick(){
+    setIsEditProfilePopupOpen(true)
+  }
+
+  function handleAddPlaceClick(){
+    setIsAddProfilePopupOpen(true)
+  }
+
+  function handleEditAvatarClick(){
+    setIsEditAvatarPopupOpen(true)
+  }
+
+  function closeAllPopups(){
+    setIsEditProfilePopupOpen(false)
+    setIsAddProfilePopupOpen(false)
+    setIsEditAvatarPopupOpen(false)
+  }
+
+
   return (
     <div className = 'body'>
       <div className="page">
         <Header/>
-        <Main/>
+        <Main onEditProfile = {handleEditProfileClick} onAddPlace ={handleAddPlaceClick} onEditAvatar = {handleEditAvatarClick} />
         <Footer/>
-        <div className="popup popup_type_edit">
-          <div className="popup__container">
-            <button type="button" className="popup__close"></button>
-            <form
-              name="edit-form"
-              className="popup__form popup__form_type_edit"
-              novalidate
-            >
-              <h2 className="popup__form-title">Редактировать профиль</h2>
+
+        <PopupWithForm name='confirm' formName = 'confirmation-form' title ='Вы уверены?' saveButton = 'boxModel' textButton ='Да'/>
+      
+        <PopupWithForm name='edit' formName = 'edit-form' title = 'Редактировать профиль'  textButton ='Сoхранить' isOpen={isEditProfilePopupOpen} onClose ={closeAllPopups}>
               <input
                 id="name"
                 name="full-name"
                 type="text"
                 placeholder="Название"
-                class="popup__input popup__input_type_name"
-                minlength="2"
-                maxlength="40"
-                autocomplete="off"
+                className="popup__input popup__input_type_name"
+                minLength="2"
+                maxLength="40"
+                autoComplete="off"
                 required
               />
               <span id="name-error" className="error"></span>
@@ -35,37 +58,25 @@ function App() {
                 name="vocation"
                 type="text"
                 placeholder="O себе"
-                class="popup__input popup__input_type_vocation"
-                minlength="2"
-                maxlength="200"
-                autocomplete="off "
+                className="popup__input popup__input_type_vocation"
+                minLength="2"
+                maxLength="200"
+                autoComplete="off "
                 required
               />
               <span id="vocation-error" className="error"></span>
-              <button type="submit" className="popup__button popup__form-save">
-                Сохранить
-              </button>
-            </form>
-          </div>
-        </div>
-        <div className="popup popup_type_add">
-          <div className="popup__container">
-            <button type="button" className="popup__close"></button>
-            <form
-              name="add-form"
-              className="popup__form popup__form_type_add"
-              novalidate
-            >
-              <h2 class="popup__form-title">Новое место</h2>
+        </PopupWithForm>
+
+        <PopupWithForm name ='add' formName='add-form' title ='Новое место' textButton ='Создать' isOpen ={isAddProfilePopupOpen} onClose ={closeAllPopups}>  
               <input
                 id="title"
                 name="title"
                 placeholder="Название"
                 type="text"
                 className="popup__input popup__input_type_title"
-                minlength="2"
-                maxlength="30"
-                autocomplete="off"
+                minLength="2"
+                maxLength="30"
+                autoComplete="off"
                 required
               />
               <span id="title-error" className="error"></span>
@@ -75,68 +86,28 @@ function App() {
                 placeholder="Ссылка"
                 type="url"
                 className="popup__input popup__input_type_link"
-                autocomplete="off"
+                autoComplete="off"
                 required
               />
               <span id="link-error" className="error"></span>
-              <button type="submit" className="popup__button popup__form-save">
-                Создать
-              </button>
-            </form>
-          </div>
-        </div>
-        <div className="popup popup_type_avatar">
-          <div className="popup__container">
-            <button type="button" className="popup__close"></button>
-            <form
-              name="add-form"
-              className="popup__form popup__form_type_avatar"
-              novalidate
-            >
-              <h2 className="popup__form-title">Обновить аватар</h2>
+        </PopupWithForm>
+
+        <PopupWithForm name ='avatar' formName ='avatar-form' title = 'Обновить аватар' textButton ='Сохранить' isOpen ={isEditAvatarPopupOpen} onClose ={closeAllPopups}>
               <input
                 id="link-avatar"
                 name="link"
                 placeholder="Ссылка"
                 type="url"
                 className="popup__input popup__input_type_avatar"
-                autocomplete="off"
+                autoComplete="off"
                 required
               />
               <span id="link-avatar-error" className="error"></span>
-              <button type="submit" className="popup__button popup__form-save">
-                Сохранить
-              </button>
-            </form>
-          </div>
-        </div>
-        <div className="popup popup_type_confirm">
-          <form className="popup__container popup__form" name="confirmation-form">
-            <button type="button" className="popup__close"></button>
-            <h2 class="popup__form-title">Вы уверены?</h2>
-            <button
-              type="submit"
-              className="
-                popup__button popup__form-save boxModel
-              "
-            >
-              Да
-            </button>
-          </form>
-        </div>
-        <div className="popup popup_type_image">
-          <div className="popup__container popup__container_type_image">
-            <button type="button" className="popup__close"></button>
-            <img
-              className="popup__image"
-              src=""
-              alt="Публикация"
-            />
-            <h2 className="popup__image-title"></h2>
-          </div>
-        </div>
-      </div>
-      <template className="elements__template">
+        </PopupWithForm>
+
+
+
+        <template className="elements__template">
         <li className="elements__element">
           <img
             className="elements__image"
@@ -153,6 +124,7 @@ function App() {
           </div>
         </li>
       </template>
+      </div>
     </div>
   );
 }
