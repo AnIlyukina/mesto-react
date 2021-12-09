@@ -6,11 +6,13 @@ import PopupWithForm from "./PopupWithForm";
 
 
 
+
 function App() {
 
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = React.useState(false)
   const [isAddProfilePopupOpen, setIsAddProfilePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
+
 
   function handleEditProfileClick(){
     setIsEditProfilePopupOpen(true)
@@ -55,6 +57,7 @@ function App() {
               <span id="name-error" className="error"></span>
               <input
                 id="vocation"
+               
                 name="vocation"
                 type="text"
                 placeholder="O себе"
@@ -105,25 +108,6 @@ function App() {
               <span id="link-avatar-error" className="error"></span>
         </PopupWithForm>
 
-
-
-        <template className="elements__template">
-        <li className="elements__element">
-          <img
-            className="elements__image"
-            src=""
-            alt=""
-          />
-          <button type="button" className="elements__delete"></button>
-          <div className="elements__group">
-            <h3 className="elements__name"></h3>
-            <div className="elements__activity">
-              <button type="button" className="elements__like"></button>
-              <span className="elements__like-count">6</span>
-            </div>
-          </div>
-        </li>
-      </template>
       </div>
     </div>
   );
