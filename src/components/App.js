@@ -12,7 +12,7 @@ function App() {
   const [isAddProfilePopupOpen, setIsAddProfilePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
 
-  const [selectedCard, setSelectedCard] = React.useState(false)
+  const [selectedCard, setSelectedCard] = React.useState({name: '', link: ''});
 
   function handleCardClick(card){
     setSelectedCard(card)
@@ -34,7 +34,7 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsAddProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
-    setSelectedCard(false)
+    setSelectedCard({name: '', link: ''})
   }
 
 
