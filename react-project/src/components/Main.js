@@ -24,15 +24,13 @@ function Main(props){
 
   const [cards, addCards] = React.useState([])
 
-  React.useEffect(() =>{
+  React.useEffect(()=>{
     api
-    .getInitialCards()
-    .then((data) =>{
-      addCards(data);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+      .getInitialCards()
+      .then(data => addCards(data))
+      .catch((err) => {
+        console.log(err);
+      });
   }, [])
 
 
@@ -67,12 +65,9 @@ function Main(props){
     </section>
     <section className="elements">
       <ul className="elements__grid">
-
-        {cards.map((card) =>{
-          console.log(card._id);
-          <Card key={card._id} name={card.name} link={card.link} likes={card.likes}/>
-        })}
-
+        {
+          cards.map(card => <Card key={card._id} card={card} onCardClick={props.onCardClick}/>)  
+        }
       </ul>
     </section>
   </main>

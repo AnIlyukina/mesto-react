@@ -1,10 +1,9 @@
 import React from "react";
 import Footer from "./Footer";
 import Header from "./Header";
+import ImagePopup from "./ImagePopup";
 import Main from "./Main";
 import PopupWithForm from "./PopupWithForm";
-
-
 
 
 function App() {
@@ -13,6 +12,11 @@ function App() {
   const [isAddProfilePopupOpen, setIsAddProfilePopupOpen] = React.useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false)
 
+  const [selectedCard, setSelectedCard] = React.useState(false)
+
+  function handleCardClick(card){
+    setSelectedCard(card)
+  }
 
   function handleEditProfileClick(){
     setIsEditProfilePopupOpen(true)
@@ -30,14 +34,17 @@ function App() {
     setIsEditProfilePopupOpen(false)
     setIsAddProfilePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
+    setSelectedCard(false)
   }
+
+
 
 
   return (
     <div className = 'body'>
       <div className="page">
         <Header/>
-        <Main onEditProfile = {handleEditProfileClick} onAddPlace ={handleAddPlaceClick} onEditAvatar = {handleEditAvatarClick} />
+        <Main onEditProfile = {handleEditProfileClick} onAddPlace ={handleAddPlaceClick} onEditAvatar = {handleEditAvatarClick} onCardClick={handleCardClick}/>
         <Footer/>
 
         <PopupWithForm name='confirm' formName = 'confirmation-form' title ='Вы уверены?' saveButton = 'boxModel' textButton ='Да'/>
@@ -94,7 +101,6 @@ function App() {
               />
               <span id="link-error" className="error"></span>
         </PopupWithForm>
-
         <PopupWithForm name ='avatar' formName ='avatar-form' title = 'Обновить аватар' textButton ='Сохранить' isOpen ={isEditAvatarPopupOpen} onClose ={closeAllPopups}>
               <input
                 id="link-avatar"
@@ -107,7 +113,7 @@ function App() {
               />
               <span id="link-avatar-error" className="error"></span>
         </PopupWithForm>
-
+        <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
       </div>
     </div>
   );
