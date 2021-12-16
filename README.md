@@ -27,3 +27,6 @@ ___
 
  [Ссылка на GitHub Pages](https://anilyukina.github.io/mesto-react/) :feet:         
  [Ссылка на репозиторий этого проекта, написанного на JavaScript](https://github.com/AnIlyukina/mesto):feet:
+ ___
+### Можно лучше:
+:radio_button: Доработка функционала проекта.
