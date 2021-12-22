@@ -38,11 +38,32 @@ class Api {
     });
   }
 
+  // Изменение лайка на карточках 
+
+  changeLikeCardStatus(id, isLiked) {
+    if (isLiked) {
+      return fetch(`${this._baseUrl}/cards/like/${id}`, {
+        method: "PUT",
+        headers: this._token,
+        })
+        .then((res) => {
+          return this._serverResponse(res)
+        })
+    } else {
+      return fetch(`${this._baseUrl}/cards/like/${id}`, {
+        method: "DELETE",
+        headers: this._token,
+        })
+        .then((res) => {
+          return this._serverResponse(res)
+        })
+    }     
+  }
 }
 
 const api = new Api({
   baseUrl: "https://nomoreparties.co/v1/cohort-30/",
-  token: "e95f6452-4a83-47bc-9602-e1836af50369",
+  token: 'e95f6452-4a83-47bc-9602-e1836af50369',
   },
 );
 

@@ -14,8 +14,12 @@
   transition: .3s;
 }
 
-.elements__delete.invisible {
-  visibility: hidden;
+.elements__delete_visible {
+  display: block;
+}
+
+.elements__delete_hidden {
+  display: none;
 }
 
 .elements__delete:hover{
