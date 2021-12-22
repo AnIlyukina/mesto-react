@@ -19,6 +19,8 @@ function App() {
 
   const [cards, addCards] = React.useState([])
 
+  const [deletedCard, setDeletedCard] = React.useState({});
+
   React.useEffect(()=>{
     Promise.all( [api.getInfoDate(), api.getInitialCards()])
     .then(([user, cards]) => {
@@ -53,6 +55,17 @@ function App() {
     setSelectedCard({name: '', link: ''})
   }
 
+  function handleCardDelete(){
+    api
+    .deleteCard(deletedCard._id)
+    .then(() => {
+      const newCards = cards.filter((c) => c._id !== deletedCard._id);
+      addCards(newCards);
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
     const isLiked = card.likes.some(like => like._id === currentUser._id);
@@ -67,7 +80,9 @@ function App() {
     }).catch((error) => {
       console.log(error)
     })
-} 
+  } 
+
+  
 
 
 
@@ -83,6 +98,7 @@ function App() {
             onCardClick={handleCardClick}
             cards={cards}
             onCardLike ={handleCardLike}
+            onCardDelete = {handleCardDelete}
             />
           <Footer/>
 

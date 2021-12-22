@@ -38,6 +38,16 @@ class Api {
     });
   }
 
+ // Удаление карточек
+  deleteCard(id) {
+    return fetch(`${this._baseUrl}cards/${id}`, {
+      method: "DELETE",
+      headers: this._token,
+    }).then((res) => { 
+      return this._serverResponse(res)
+    });
+  }
+
   // Изменение лайка на карточках 
 
   changeLikeCardStatus(id, isLiked) {
