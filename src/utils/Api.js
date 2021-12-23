@@ -69,6 +69,22 @@ class Api {
     });
   }
 
+
+  // Сохранение новых карточек
+  saveCard(data) {
+    return fetch(`${this._baseUrl}cards/`, {
+      method: "POST",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(data),
+    }).then((res) => { 
+      return this._serverResponse(res)
+    });
+  }
+
+
  // Удаление карточек
   deleteCard(id) {
     return fetch(`${this._baseUrl}cards/${id}`, {

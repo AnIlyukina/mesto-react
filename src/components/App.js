@@ -8,7 +8,7 @@ import PopupWithForm from "./PopupWithForm";
 import {CurrentUserContext} from  "./../context/CurrentUserContext"
 import EditProfilePopup from './EditProfilePopup'
 import EditAvatarPopup from "./EditAvatarPopup";
-
+import AddPlacePopup from "./AddPlacePopup";
 
 function App() {
 
@@ -86,6 +86,20 @@ function App() {
      })
    }
 
+   function handleAddPlaceSubmit(newCard){
+     api
+     .saveCard(newCard)
+     .then((newCard) =>{
+      addCards([newCard, ...cards])
+     })
+     .then(()=>{
+       closeAllPopups()
+     })
+     .catch((error) =>{
+       console.log(error)
+     })
+   }
+
   function handleCardDelete(card){
     api
     .deleteCard(card._id)
@@ -134,33 +148,10 @@ function App() {
 
           <EditAvatarPopup isOpen={isEditAvatarPopupOpen} onClose={closeAllPopups} onUpdateAvatar ={handleUpdateAvatar}/> 
 
+          <AddPlacePopup isOpen={isAddProfilePopupOpen} onClose={closeAllPopups} onAddPlace={handleAddPlaceSubmit}/>
+
           <PopupWithForm name='confirm' formName = 'confirmation-form' title ='Вы уверены?' saveButton = 'boxModel' textButton ='Да'/>
 
-          <PopupWithForm name ='add' formName='add-form' title ='Новое место' textButton ='Создать' isOpen ={isAddProfilePopupOpen} onClose ={closeAllPopups}>  
-                <input
-                  id="title"
-                  name="title"
-                  placeholder="Название"
-                  type="text"
-                  className="popup__input popup__input_type_title"
-                  minLength="2"
-                  maxLength="30"
-                  autoComplete="off"
-                  required
-                />
-                <span id="title-error" className="error"></span>
-                <input
-                  id="link"
-                  name="link"
-                  placeholder="Ссылка"
-                  type="url"
-                  className="popup__input popup__input_type_link"
-                  autoComplete="off"
-                  required
-                />
-                <span id="link-error" className="error"></span>
-          </PopupWithForm>
-          
           <ImagePopup card={selectedCard} onClose={closeAllPopups}/>
         </CurrentUserContext.Provider>
       </div>
