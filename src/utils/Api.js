@@ -38,11 +38,45 @@ class Api {
     });
   }
 
+  // Сохранение новых данных о пользователе
+  saveInfoDate(user) {
+    return fetch(`${this._baseUrl}users/me/`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify({
+        name: `${user.name}`,
+        about: `${user.about}`,
+      }),
+    }).then((res) => { 
+      return this._serverResponse(res)
+    });
+  }
+
+   // Измнение аватара
+   changeAvatar(avatar) {
+    return fetch(`${this._baseUrl}users/me/avatar`, {
+      method: "PATCH",
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(avatar),
+    }).then((res) => { 
+      return this._serverResponse(res)
+    });
+  }
+
  // Удаление карточек
   deleteCard(id) {
     return fetch(`${this._baseUrl}cards/${id}`, {
       method: "DELETE",
-      headers: this._token,
+      headers: {
+        authorization: this._token,
+        "Content-type": "application/json"
+      },
     }).then((res) => { 
       return this._serverResponse(res)
     });
@@ -52,17 +86,23 @@ class Api {
 
   changeLikeCardStatus(id, isLiked) {
     if (isLiked) {
-      return fetch(`${this._baseUrl}/cards/like/${id}`, {
+      return fetch(`${this._baseUrl}cards/likes/${id}`, {
         method: "PUT",
-        headers: this._token,
+        headers: {
+          authorization: this._token,
+          "Content-type": "application/json"
+        },
         })
         .then((res) => {
           return this._serverResponse(res)
         })
     } else {
-      return fetch(`${this._baseUrl}/cards/like/${id}`, {
+      return fetch(`${this._baseUrl}cards/likes/${id}`, {
         method: "DELETE",
-        headers: this._token,
+        headers: {
+          authorization: this._token,
+          "Content-type": "application/json"
+        },
         })
         .then((res) => {
           return this._serverResponse(res)
