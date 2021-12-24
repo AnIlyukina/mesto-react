@@ -23,7 +23,7 @@ function App() {
     link: "",
   });
 
-  const [currentUser, setCurrentUser] = React.useState(false);
+  const [currentUser, setCurrentUser] = React.useState({});
 
   const [cards, addCards] = React.useState([]);
 
@@ -66,8 +66,6 @@ function App() {
       .saveInfoDate(user)
       .then((newUserInfo) => {
         setCurrentUser(newUserInfo);
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((error) => {
@@ -80,8 +78,6 @@ function App() {
       .changeAvatar(avatar)
       .then((avatar) => {
         setCurrentUser(avatar);
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((error) => {
@@ -94,8 +90,6 @@ function App() {
       .saveCard(newCard)
       .then((newCard) => {
         addCards([newCard, ...cards]);
-      })
-      .then(() => {
         closeAllPopups();
       })
       .catch((error) => {
